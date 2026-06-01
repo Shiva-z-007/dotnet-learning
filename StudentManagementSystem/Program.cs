@@ -1,0 +1,156 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace StudentManagementSystem
+{
+   
+    public class Student
+    {
+        public string Id { get; }
+        public string Name { get; }
+        public int Age { get; }
+
+        public Student(string id, string name, int age)
+        {
+            Id = id;
+            Name = name;
+            Age = age;
+        }
+
+       
+    }
+
+    
+    public class Program
+    {
+        public static Student AddStudent(List<Student> students)
+        {
+            string id;
+            while (true)
+            {
+                Console.Write("Enter Student Id : ");
+                id =  Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    Console.WriteLine("Id cannot be empty");
+                }
+                else if (GetStudent(id, students) != null)
+                {
+                    Console.WriteLine("Error: A Student with this Id already exists");
+                }
+                else
+                {
+                    break;
+                }
+            }
+                Console.Write("Enter Student Name : ");
+            string name = Console.ReadLine();
+           
+            int age;
+            while (true)
+            {
+                Console.Write("Enter Student Age : ");
+                if(int.TryParse(Console.ReadLine(),out age) && age>0)
+                {
+                    break ;
+                }
+                Console.WriteLine("Invalid input. Please enter a valid age");
+
+            }
+            
+            
+            return new Student(id,name,age);
+        }
+        public static void ViewStudent(List<Student> students)
+        {
+            foreach(Student student in students) {
+                Console.WriteLine("Student Id : "+student.Id);
+                Console.WriteLine("Student Name : " + student.Name);
+                Console.WriteLine("Student Age : " + student.Age);
+                Console.WriteLine();
+            }
+        }
+
+        public static Student GetStudent(string id, List<Student> students)
+        {
+            foreach(Student student in students)
+            {
+                if(student.Id == id)return student;
+            }
+            return null;
+        }
+        public static bool DelStudent(string id, List<Student> students)
+        {
+            Student s = GetStudent(id, students);
+            if (s != null) { students.Remove(s); return true; }
+          
+                return false;
+        }
+        public static void Main(string[] args)
+        {
+            // Senior Clue: Your master data storage list goes here!
+            List<Student> students = new List<Student>();
+
+            while (true)
+            {
+                Console.WriteLine("\n==================================");
+                Console.WriteLine("    STUDENT MANAGEMENT SYSTEM    ");
+                Console.WriteLine("==================================");
+                Console.WriteLine("1. Add Student");
+                Console.WriteLine("2. View Students");
+                Console.WriteLine("3. Search Student");
+                Console.WriteLine("4. Delete Student");
+                Console.WriteLine("5. Exit");
+                Console.Write("\nSelect an option (1-5): ");
+                Console.WriteLine();
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        students.Add(AddStudent(students));
+                        break;
+
+                    case "2":
+                        ViewStudent(students);
+                        break;
+                    case "3":
+                        Console.Write("Enter Student Id you want to search : ");
+                        string id = Console.ReadLine();
+                        Student s = GetStudent(id, students);
+                        if(s == null)
+                        {
+                            Console.WriteLine("No student found!");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Found! Name: {s.Name}");
+                        }
+                            break;
+                    case "4":
+                        Console.Write("Enter Student Id you want to delete : ");
+                        string sId = Console.ReadLine();
+                        bool isDel = DelStudent(sId, students);
+                        if (isDel)
+                        {
+                            Console.WriteLine("Student deleted successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No Student found");
+                        }
+                            break;
+                    case "5":
+                        Console.WriteLine("Exiting program. Goodbye!");
+                        return; // Stops the execution loop cleanly
+
+                    default:
+                        Console.WriteLine("Invalid option. Press any key to try again...");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+    }
+}
