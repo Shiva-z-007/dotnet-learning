@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StudentManagementSystem
 {
@@ -138,6 +139,8 @@ namespace StudentManagementSystem
         {
             // Senior Clue: Your master data storage list goes here!
             List<Student> students = new List<Student>();
+            
+           
 
             while (true)
             {
@@ -145,6 +148,7 @@ namespace StudentManagementSystem
                 Console.WriteLine("    STUDENT MANAGEMENT SYSTEM    ");
                 Console.WriteLine("==================================");
                 Console.WriteLine("1. Add Student");
+
                 Console.WriteLine("2. View Students");
                 Console.WriteLine("3. Search Student");
                 Console.WriteLine("4. Delete Student");
