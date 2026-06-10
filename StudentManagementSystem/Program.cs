@@ -154,8 +154,9 @@ namespace StudentManagementSystem
                 Console.WriteLine("4. Delete Student");
                 Console.WriteLine("5. Update");
                 Console.WriteLine("6. Total Students");
-                Console.WriteLine("7. Exit");
-                Console.Write("\nSelect an option (1-7): ");
+                Console.WriteLine("7. Search by Name");
+                Console.WriteLine("8. Exit");
+                Console.Write("\nSelect an option (1-8): ");
                 Console.WriteLine();
 
                 string choice = Console.ReadLine();
@@ -207,6 +208,27 @@ namespace StudentManagementSystem
                         Console.WriteLine($"Total Students : {count}");
                         break;
                     case "7":
+                        Console.Write("Enter Student Name you want to search : ");
+                        string name = Console.ReadLine();
+                        if (string.IsNullOrWhiteSpace(name))
+                        {
+                            Console.WriteLine("Student name cannot be empty");
+                        }
+                        var foundStudents = students.Where(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+                        if (!foundStudents.Any())
+                        {
+                            Console.WriteLine("No student found with that name!");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Found {foundStudents.Count} student(s) with the name '{name}':");
+                            foreach (var student in foundStudents)
+                            {
+                                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                            }
+                        }
+                        break;
+                    case "8":
                         Console.WriteLine("Exiting program. Goodbye!");
                         return; // Stops the execution loop cleanly
 
