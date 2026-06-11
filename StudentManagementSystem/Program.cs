@@ -129,6 +129,7 @@ namespace StudentManagementSystem
         {
             Student s = GetStudent(id, students);
             if (s != null) { students.Remove(s); return true; }
+           
                 return false;
         }
         public static int StudentCount(List<Student> students)
@@ -189,6 +190,11 @@ namespace StudentManagementSystem
                     case "4":
                         Console.Write("Enter Student Id you want to delete : ");
                         string sId = Console.ReadLine();
+                        if(string.IsNullOrWhiteSpace(sId))
+                        {
+                            Console.WriteLine("Student Id cannot be empty");
+                            break;
+                        }
                         bool isDel = DelStudent(sId, students);
                         if (isDel)
                         {
@@ -196,7 +202,7 @@ namespace StudentManagementSystem
                         }
                         else
                         {
-                            Console.WriteLine("No Student found");
+                            Console.WriteLine("No Student found with the given Id");
                         }
                             break;
 
