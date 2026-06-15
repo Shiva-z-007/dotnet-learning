@@ -156,8 +156,9 @@ namespace StudentManagementSystem
                 Console.WriteLine("5. Update");
                 Console.WriteLine("6. Total Students");
                 Console.WriteLine("7. Search by Name");
-                Console.WriteLine("8. Exit");
-                Console.Write("\nSelect an option (1-8): ");
+                Console.WriteLine("8. Sort Students By Age");
+                Console.WriteLine("9. Exit");
+                Console.Write("\nSelect an option (1-9): ");
                 Console.WriteLine();
 
                 string choice = Console.ReadLine();
@@ -235,6 +236,40 @@ namespace StudentManagementSystem
                         }
                         break;
                     case "8":
+                        int sortOption;
+                        while (true)
+                        {
+                            Console.WriteLine("Select Option 1 for Ascending Order and 2 for descending Order");
+                            sortOption = Convert.ToInt32(Console.ReadLine());
+                            if (sortOption == 1 || sortOption == 2)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid option. Please select 1 or 2.");
+                            }
+                        }
+                        if(sortOption == 1)
+                        {
+                            var sortedStudentsAsc = students.OrderBy(s => s.Age);
+                            Console.WriteLine("Students sorted by age in ascending order:");
+                            foreach (var student in sortedStudentsAsc)
+                            {
+                                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                            }
+                        }
+                        else
+                        {
+                            var sortedStudentsDesc = students.OrderByDescending(s => s.Age);
+                            Console.WriteLine("Students sorted by age in descending order:");
+                            foreach (var student in sortedStudentsDesc)
+                            {
+                                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                            }
+                        }
+                        break;
+                    case "9":
                         Console.WriteLine("Exiting program. Goodbye!");
                         return; // Stops the execution loop cleanly
 
