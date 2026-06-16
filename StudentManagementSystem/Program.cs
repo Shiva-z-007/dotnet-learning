@@ -136,6 +136,17 @@ namespace StudentManagementSystem
         {
             return students.Count;
         }
+        public static void DisplayStudent(Student student)
+        {
+            Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+        }
+        public static void DisplayStudents(List<Student> students)
+        {
+            foreach(var student in students)
+            {
+                DisplayStudent(student);
+            }
+        }
         public static void Main(string[] args)
         {
             // Senior Clue: Your master data storage list goes here!
@@ -149,7 +160,6 @@ namespace StudentManagementSystem
                 Console.WriteLine("    STUDENT MANAGEMENT SYSTEM    ");
                 Console.WriteLine("==================================");
                 Console.WriteLine("1. Add Student");
-
                 Console.WriteLine("2. View Students");
                 Console.WriteLine("3. Search Student");
                 Console.WriteLine("4. Delete Student");
@@ -183,9 +193,7 @@ namespace StudentManagementSystem
                         else
                         {
                             Console.WriteLine($"Student Found!");
-                            Console.WriteLine($"Id : {s.Id}");
-                            Console.WriteLine($"Name : {s.Name}");
-                            Console.WriteLine($"Age : {s.Age}");
+                            DisplayStudent(s);
                         }
                             break;
                     case "4":
@@ -229,10 +237,7 @@ namespace StudentManagementSystem
                         else
                         {
                             Console.WriteLine($"Found {foundStudents.Count} student(s) with the name '{name}':");
-                            foreach (var student in foundStudents)
-                            {
-                                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
-                            }
+                            DisplayStudents(foundStudents);
                         }
                         break;
                     case "8":
@@ -256,7 +261,7 @@ namespace StudentManagementSystem
                             Console.WriteLine("Students sorted by age in ascending order:");
                             foreach (var student in sortedStudentsAsc)
                             {
-                                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                                DisplayStudent(student);
                             }
                         }
                         else
@@ -265,7 +270,7 @@ namespace StudentManagementSystem
                             Console.WriteLine("Students sorted by age in descending order:");
                             foreach (var student in sortedStudentsDesc)
                             {
-                                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                                DisplayStudent(student);
                             }
                         }
                         break;
